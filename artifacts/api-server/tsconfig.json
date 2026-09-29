@@ -6,8 +6,6 @@
     "outDir": "dist",
     "rootDir": "src",
     "types": ["node"],
-"esModuleInterop": true,
-"allowSyntheticDefaultImports": true
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true
   },
