@@ -1,0 +1,1551 @@
+You are an expert full-stack software engineer, UI/UX designer, database architect, AI application developer, GIS/map developer, cybersecurity engineer, and QA engineer.
+
+BUILD A COMPLETE FULL-STACK WEB APPLICATION FROM SCRATCH CALLED:
+
+ROADGUARD
+
+Do not create a simple prototype or static HTML mockup.
+
+Build a genuinely functional, production-style road safety and road hazard management platform.
+
+The application should reproduce the same overall RoadGuard concept, pages, functionality, dashboard structure, risk system, map functionality, complaint system, reporting, and analytics as described below.
+
+============================================================
+1. PROJECT OBJECTIVE
+============================================================
+
+RoadGuard is a road-safety platform designed to help citizens identify, analyze, report, visualize, and track dangerous road conditions.
+
+Users should be able to:
+
+1. Upload a road image.
+2. Analyze a road hazard.
+3. Identify the type of hazard.
+4. Estimate damage/severity.
+5. Calculate a risk score.
+6. Classify the hazard as LOW, MEDIUM, or HIGH risk.
+7. Save the hazard.
+8. View hazards on an interactive map.
+9. Submit complaints.
+10. Track complaint status.
+11. Generate/view reports.
+12. View road-safety analytics.
+13. View historical records.
+14. Identify responsible authorities.
+15. Manage road hazard information.
+
+The application must have real navigation, real data flow, persistent storage, validation, loading states, error handling, and responsive design.
+
+============================================================
+2. IMPORTANT DEVELOPMENT RULE
+============================================================
+
+Do not build everything as a fake visual mockup.
+
+Every major button must perform a real action.
+
+Every page must actually work.
+
+Every navigation item must navigate to a real page.
+
+Dashboard statistics must be calculated from actual stored data.
+
+Map markers must come from actual stored hazard records.
+
+Analytics must use actual stored data.
+
+Complaints must actually be saved.
+
+Reports must be generated from actual records.
+
+Data must persist after refreshing the browser.
+
+If a real external AI API is not configured, implement a clearly labelled development analysis fallback rather than pretending fake results are real AI.
+
+============================================================
+3. TECHNOLOGY STACK
+============================================================
+
+Build a modern full-stack application.
+
+Preferred stack:
+
+Frontend:
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+
+Backend:
+- Node.js
+- Express
+
+Database:
+- PostgreSQL
+
+ORM:
+- Prisma
+
+Maps:
+- Leaflet
+- OpenStreetMap
+
+Charts:
+- Recharts
+
+Icons:
+- Lucide React
+
+Authentication:
+- Secure session/JWT-based authentication where appropriate.
+
+Use environment variables for secrets.
+
+Do not expose API keys in frontend code.
+
+If Replit provides a suitable built-in database/environment integration, use it appropriately.
+
+============================================================
+4. APPLICATION BRANDING
+============================================================
+
+Application name:
+
+RoadGuard
+
+Tagline:
+
+AI-Powered Road Safety & Hazard Reporting Platform
+
+Brand identity:
+
+Modern
+Professional
+Trustworthy
+Road-safety focused
+Technology driven
+
+Primary accent:
+
+Yellow / gold
+
+Risk colors:
+
+HIGH:
+Red
+
+MEDIUM:
+Orange / yellow
+
+LOW:
+Green
+
+Overall interface:
+
+Dark modern dashboard.
+
+Background:
+Near-black / very dark navy.
+
+Cards:
+Dark charcoal.
+
+Text:
+White / off-white.
+
+Secondary text:
+Muted blue-gray.
+
+Borders:
+Subtle dark gray.
+
+============================================================
+5. MAIN NAVIGATION
+============================================================
+
+Create a navigation system containing:
+
+Dashboard
+Analyze Road
+Hazard Risk Map
+Complaints
+Reports
+Analytics
+About
+
+Desktop:
+
+Use a left sidebar similar to the original RoadGuard interface.
+
+Mobile:
+
+Convert the sidebar into a responsive navigation drawer/menu.
+
+Selected navigation item should have a highlighted dark card/background.
+
+Selected icon and text should use the RoadGuard yellow/gold accent.
+
+============================================================
+6. DASHBOARD
+============================================================
+
+Create the main RoadGuard Dashboard.
+
+Header:
+
+Dashboard
+
+Subtitle:
+
+Overview of road hazards you've recorded.
+
+Display four statistic cards:
+
+TOTAL RECORDS
+
+HIGH RISK
+
+MEDIUM RISK
+
+LOW RISK
+
+The numbers must be calculated from the database.
+
+Example:
+
+Total Records: 12
+High Risk: 3
+Medium Risk: 4
+Low Risk: 5
+
+These numbers are examples only.
+
+Do NOT permanently hardcode them.
+
+When a new hazard is created, the dashboard must automatically update.
+
+Dashboard layout:
+
++----------------------+ +----------------------+
+| Total Records        | | High Risk            |
+| 12                   | | 3                    |
++----------------------+ +----------------------+
+
++----------------------+ +----------------------+
+| Medium Risk          | | Low Risk             |
+| 4                    | | 5                    |
++----------------------+ +----------------------+
+
+Below the cards:
+
+[ Analyze a Road ]
+
+[ Open Hazard Risk Map ]
+
+Then:
+
+Recent records
+
+Each record should display:
+
+Hazard type
+Location
+Date/time
+Risk level
+Risk score
+
+Example:
+
+Waterlogging — Triambakeshwar
+
+HIGH · 90
+
+Clicking the record should open detailed information.
+
+============================================================
+7. ANALYZE ROAD
+============================================================
+
+Create a complete road analysis system.
+
+Page title:
+
+Analyze Road
+
+Allow users to:
+
+- Upload an image.
+- Drag and drop an image.
+- Take/upload a mobile camera image.
+- Preview the image.
+- Enter a road location.
+- Use current location if permission is granted.
+- Select hazard type.
+- Start analysis.
+- View analysis results.
+- Modify detected information.
+- Save the record.
+
+Supported image formats:
+
+JPG
+JPEG
+PNG
+WEBP
+
+Validate image size and file type.
+
+============================================================
+8. ROAD HAZARD TYPES
+============================================================
+
+Support at least:
+
+Pothole
+
+Waterlogging
+
+Cracked Road
+
+Damaged Road
+
+Road Debris
+
+Missing Streetlight
+
+Broken Traffic Signal
+
+Damaged Divider
+
+Poor Road Marking
+
+Open Manhole
+
+Flooded Road
+
+Road Collapse
+
+Other
+
+============================================================
+9. AI ROAD ANALYSIS
+============================================================
+
+Create an AI analysis service architecture.
+
+The application should be capable of connecting to an external computer-vision/AI API through environment variables.
+
+If no AI API key exists:
+
+Use a DEVELOPMENT ANALYSIS fallback.
+
+Clearly label it:
+
+Development Analysis
+
+Never falsely claim that a deterministic/mock analysis is real AI.
+
+Analysis should return:
+
+Detected Hazard
+Damage Percentage
+Risk Score
+Risk Level
+Description
+Recommended Action
+
+Example:
+
+Detected Hazard:
+Pothole
+
+Damage:
+35%
+
+Risk Score:
+72
+
+Risk Level:
+HIGH
+
+Description:
+Significant road surface damage detected.
+
+Recommended Action:
+Repair the damaged road surface and inspect the surrounding road section.
+
+============================================================
+10. RISK ENGINE
+============================================================
+
+Create a proper risk-scoring service.
+
+Risk score:
+
+0–100
+
+Classification:
+
+0–39:
+LOW
+
+40–69:
+MEDIUM
+
+70–100:
+HIGH
+
+Risk score should consider available analysis information such as:
+
+- hazard type
+- damage percentage
+- severity
+- road condition
+- potential traffic danger
+
+Keep the risk calculation modular so it can be improved later.
+
+Store:
+
+riskScore
+riskLevel
+
+in the database.
+
+============================================================
+11. ANALYSIS RESULT
+============================================================
+
+After analysis display a professional result panel.
+
+Example:
+
+ROAD ANALYSIS RESULT
+
+Hazard:
+Waterlogging
+
+Damage:
+65%
+
+Risk Score:
+90
+
+Risk:
+HIGH
+
+Description:
+Severe water accumulation may reduce road visibility and affect vehicle control.
+
+Recommended Action:
+Remove standing water and inspect the road surface.
+
+Buttons:
+
+Save Record
+
+Analyze Another Road
+
+Do not automatically save.
+
+Only save when the user selects:
+
+Save Record
+
+============================================================
+12. LOCATION SYSTEM
+============================================================
+
+Allow:
+
+Manual location entry.
+
+Latitude.
+
+Longitude.
+
+Optional browser geolocation.
+
+Button:
+
+Use My Location
+
+If location permission is denied:
+
+Continue normally using manual location.
+
+Never force location permission.
+
+============================================================
+13. HAZARD RISK MAP
+============================================================
+
+Create:
+
+Hazard Risk Map
+
+Use:
+
+Leaflet + OpenStreetMap.
+
+Display actual saved hazards.
+
+Marker colors:
+
+HIGH:
+Red
+
+MEDIUM:
+Orange/yellow
+
+LOW:
+Green
+
+Clicking a marker displays:
+
+Hazard Type
+Location
+Risk Score
+Risk Level
+Damage
+Description
+Date
+Status
+Responsible Authority
+
+Add filters:
+
+All
+High Risk
+Medium Risk
+Low Risk
+
+Add a map search/location control if practical.
+
+Map must update when new hazards are saved.
+
+============================================================
+14. COMPLAINTS
+============================================================
+
+Create a fully functional complaint system.
+
+Complaint form:
+
+Name
+Phone Number
+Road / Location
+Hazard Type
+Description
+Image
+Responsible Authority
+
+Phone should be optional.
+
+Validate all required fields.
+
+After submitting generate:
+
+Reference Number
+
+Example:
+
+RG-CMP-2026-0001
+
+Display:
+
+Complaint submitted successfully.
+
+Create:
+
+My Complaints
+
+Each complaint should display:
+
+Reference Number
+Location
+Hazard Type
+Date
+Status
+
+============================================================
+15. COMPLAINT STATUS
+============================================================
+
+Supported statuses:
+
+Submitted
+
+Under Review
+
+In Progress
+
+Resolved
+
+Rejected
+
+Users should be able to view the current status.
+
+If an admin/authority interface is implemented, authorized users can update status.
+
+============================================================
+16. RESPONSIBLE AUTHORITIES
+============================================================
+
+Allow a hazard/complaint to be assigned to an appropriate authority.
+
+Possible options:
+
+Municipal Corporation
+
+Municipal Council
+
+Public Works Department
+
+State Highway Department
+
+National Highways Authority
+
+Traffic Police
+
+Local Road Authority
+
+Other
+
+Do not automatically claim that one authority is responsible for every road.
+
+Allow the authority to be selected/changed.
+
+============================================================
+17. REPORTS
+============================================================
+
+Create a Reports page.
+
+Reports must be based on real database records.
+
+Each report should contain:
+
+Report ID
+Hazard ID
+Hazard Type
+Location
+Latitude
+Longitude
+Damage Percentage
+Risk Score
+Risk Level
+Description
+Recommended Action
+Responsible Authority
+Status
+Created Date
+
+Allow:
+
+View Report
+
+Print Report
+
+Download/export where practical.
+
+Create professional report formatting.
+
+============================================================
+18. ANALYTICS
+============================================================
+
+Create a complete Analytics page.
+
+Display:
+
+Total Hazards
+
+High Risk
+
+Medium Risk
+
+Low Risk
+
+Resolved Hazards
+
+Open Complaints
+
+Charts:
+
+Risk Distribution
+
+Hazard Type Distribution
+
+Hazards Over Time
+
+Complaint Status
+
+Authority Distribution
+
+Use Recharts.
+
+All charts must use real database data.
+
+If there is no data:
+
+Show:
+
+No data available yet.
+
+Do not invent fake analytics.
+
+============================================================
+19. ABOUT PAGE
+============================================================
+
+Create:
+
+About RoadGuard
+
+Explain:
+
+RoadGuard is a road-safety platform that helps citizens identify, analyze, report, visualize, and track road hazards.
+
+Add:
+
+How RoadGuard Works
+
+Step 1:
+Capture a road problem.
+
+Step 2:
+Analyze the hazard.
+
+Step 3:
+Calculate risk.
+
+Step 4:
+Save/report the issue.
+
+Step 5:
+Visualize the issue on the map.
+
+Step 6:
+Track resolution.
+
+Explain the purpose of:
+
+AI analysis
+Risk scoring
+Hazard map
+Complaints
+Reports
+Analytics
+
+============================================================
+20. DATABASE
+============================================================
+
+Create PostgreSQL database schema.
+
+Hazard table:
+
+id
+hazardType
+location
+latitude
+longitude
+imageUrl
+damagePercentage
+riskScore
+riskLevel
+description
+recommendedAction
+responsibleAuthority
+status
+createdAt
+updatedAt
+
+Complaint table:
+
+id
+referenceNumber
+name
+phone
+location
+latitude
+longitude
+hazardType
+description
+imageUrl
+responsibleAuthority
+status
+createdAt
+updatedAt
+
+Report table:
+
+id
+reportNumber
+hazardId
+generatedAt
+status
+
+User table if authentication is implemented:
+
+id
+name
+email
+passwordHash
+role
+createdAt
+
+Roles:
+
+USER
+
+ADMIN
+
+AUTHORITY
+
+============================================================
+21. BACKEND API
+============================================================
+
+Create clean REST APIs.
+
+Example:
+
+GET /api/hazards
+
+POST /api/hazards
+
+GET /api/hazards/:id
+
+PUT /api/hazards/:id
+
+DELETE /api/hazards/:id
+
+GET /api/complaints
+
+POST /api/complaints
+
+GET /api/complaints/:id
+
+PUT /api/complaints/:id
+
+GET /api/reports
+
+GET /api/reports/:id
+
+GET /api/analytics
+
+POST /api/analyze-road
+
+Create proper error responses.
+
+Validate backend input.
+
+============================================================
+22. IMAGE STORAGE
+============================================================
+
+Create a proper image-upload architecture.
+
+Do not store huge raw image data directly in database records.
+
+Use a suitable storage mechanism.
+
+During local development, allow a safe local-development fallback.
+
+Use environment variables for external storage credentials.
+
+============================================================
+23. AUTHENTICATION
+============================================================
+
+Implement authentication architecture.
+
+Users should be able to:
+
+Register
+Login
+Logout
+
+Protect user-specific functionality.
+
+Admin/authority users should have appropriate permissions.
+
+Never store plain-text passwords.
+
+Use secure password hashing.
+
+============================================================
+24. SECURITY
+============================================================
+
+Follow secure development practices.
+
+Implement:
+
+Input validation.
+
+Authentication.
+
+Authorization.
+
+Password hashing.
+
+Secure environment variables.
+
+API validation.
+
+File-upload validation.
+
+Basic rate limiting where appropriate.
+
+Never expose secrets.
+
+Never put API keys directly into React components.
+
+Create:
+
+.env.example
+
+with required environment variables.
+
+============================================================
+25. PROJECT STRUCTURE
+============================================================
+
+Use a clean structure such as:
+
+client/
+  src/
+    components/
+    pages/
+    layouts/
+    hooks/
+    services/
+    types/
+    utils/
+    lib/
+
+server/
+  src/
+    routes/
+    controllers/
+    services/
+    middleware/
+    utils/
+
+prisma/
+  schema.prisma
+
+public/
+
+Do not blindly follow this structure if Replit's environment requires another organization, but maintain clear separation between frontend and backend.
+
+============================================================
+26. UI COMPONENTS
+============================================================
+
+Create reusable components:
+
+Sidebar
+
+Navbar
+
+DashboardCard
+
+RiskBadge
+
+HazardCard
+
+HazardDetails
+
+ImageUploader
+
+AnalysisPanel
+
+RiskScore
+
+Map
+
+MapMarker
+
+ComplaintForm
+
+ComplaintCard
+
+ReportCard
+
+AnalyticsChart
+
+Modal
+
+Toast
+
+LoadingState
+
+ErrorState
+
+EmptyState
+
+ConfirmationDialog
+
+============================================================
+27. RESPONSIVE DESIGN
+============================================================
+
+Desktop:
+
+Match the RoadGuard dashboard structure.
+
+Tablet:
+
+Adapt card grids.
+
+Mobile:
+
+Sidebar becomes a menu/drawer.
+
+Cards stack.
+
+Forms become single-column.
+
+Buttons adapt to screen size.
+
+Map remains usable.
+
+============================================================
+28. ACCESSIBILITY
+============================================================
+
+Use:
+
+Semantic HTML
+
+Proper form labels
+
+Keyboard navigation
+
+Accessible buttons
+
+ARIA labels
+
+Image alt text
+
+Good contrast
+
+Focus states
+
+============================================================
+29. PERFORMANCE
+============================================================
+
+Optimize:
+
+Images
+
+API calls
+
+Database queries
+
+Map rendering
+
+React rendering
+
+Do not unnecessarily reload the entire page.
+
+Use proper loading states.
+
+============================================================
+30. DEMO DATA
+============================================================
+
+Create a development-only seed mechanism.
+
+Example demo records:
+
+Waterlogging — Triambakeshwar — HIGH — 90
+
+Pothole — Nashik Road — MEDIUM — 65
+
+Cracked Road — Igatpuri — MEDIUM — 52
+
+Road Debris — Sinnar — LOW — 28
+
+Clearly label these as:
+
+DEMO DATA
+
+Do not present demo data as real incidents.
+
+Provide a way to clear demo data.
+
+============================================================
+31. DASHBOARD VISUAL STYLE
+============================================================
+
+The Dashboard should resemble the RoadGuard design:
+
+Left sidebar:
+
+RoadGuard
+
+Dashboard
+Analyze Road
+Hazard Risk Map
+Complaints
+Reports
+Analytics
+About
+
+Main:
+
+Dashboard
+
+Overview of road hazards you've recorded.
+
+Four statistic cards:
+
+Total Records
+High Risk
+Medium Risk
+Low Risk
+
+Buttons:
+
+Analyze a Road
+Open Hazard Risk Map
+
+Then:
+
+Recent records
+
+Example:
+
+Waterlogging — Triambakeshwar
+
+HIGH · 90
+
+Use:
+
+Dark background
+
+Dark cards
+
+Yellow primary button
+
+Red HIGH badge
+
+Orange MEDIUM badge
+
+Green LOW badge
+
+White headings
+
+Muted blue-gray secondary text
+
+============================================================
+32. UX
+============================================================
+
+The application should feel like a real product.
+
+Use:
+
+Clear feedback.
+
+Toast notifications.
+
+Loading indicators.
+
+Confirmation dialogs.
+
+Useful empty states.
+
+Helpful error messages.
+
+Smooth but subtle transitions.
+
+Do not over-animate the interface.
+
+============================================================
+33. NO FAKE FUNCTIONALITY
+============================================================
+
+Do not create:
+
+Fake buttons.
+
+Fake navigation.
+
+Fake charts.
+
+Fake database results.
+
+Fake AI claims.
+
+Fake complaint submission.
+
+Fake map markers.
+
+If something cannot be implemented because an external API requires credentials:
+
+Build the complete architecture and provide a development fallback.
+
+============================================================
+34. TESTING
+============================================================
+
+After implementation:
+
+Run the application.
+
+Test all routes.
+
+Test:
+
+Dashboard
+
+Analyze Road
+
+Image upload
+
+Analysis
+
+Save hazard
+
+Dashboard updates
+
+Map
+
+Map filtering
+
+Complaint creation
+
+Complaint listing
+
+Complaint status
+
+Reports
+
+Analytics
+
+About
+
+Authentication
+
+Responsive layout
+
+Backend APIs
+
+Database persistence
+
+Check:
+
+Browser console.
+
+Server console.
+
+Network errors.
+
+Database errors.
+
+Broken routes.
+
+Broken buttons.
+
+Form validation.
+
+============================================================
+35. AUTOMATIC ERROR FIXING
+============================================================
+
+If you encounter errors:
+
+Read the error carefully.
+
+Identify the root cause.
+
+Fix the underlying problem.
+
+Restart/retest.
+
+Do not simply hide errors.
+
+Do not disable functionality to make an error disappear.
+
+============================================================
+36. ENVIRONMENT VARIABLES
+============================================================
+
+Create:
+
+.env.example
+
+Include placeholders for:
+
+DATABASE_URL
+
+SESSION_SECRET
+
+JWT_SECRET if required
+
+AI_API_KEY
+
+MAP configuration if required
+
+STORAGE configuration if required
+
+Never include real secrets.
+
+============================================================
+37. README
+============================================================
+
+Create a complete README.md containing:
+
+Project overview
+
+Features
+
+Technology stack
+
+Project structure
+
+Installation
+
+Environment variables
+
+Database setup
+
+Migration commands
+
+Seed commands
+
+Development commands
+
+Production build commands
+
+AI configuration
+
+Map configuration
+
+Troubleshooting
+
+============================================================
+38. REPLIT REQUIREMENTS
+============================================================
+
+Make the project work correctly inside Replit.
+
+Configure:
+
+development command
+
+build command
+
+start command
+
+database setup
+
+environment variables
+
+Replit-compatible ports
+
+The application must listen on the appropriate Replit host/port.
+
+Do not assume localhost-only behavior.
+
+Make the application accessible through the Replit preview.
+
+============================================================
+39. DEVELOPMENT PHASES
+============================================================
+
+Work in phases.
+
+PHASE 1:
+Create project architecture.
+
+PHASE 2:
+Create database schema.
+
+PHASE 3:
+Create backend API.
+
+PHASE 4:
+Create global UI/theme.
+
+PHASE 5:
+Create navigation/sidebar.
+
+PHASE 6:
+Create Dashboard.
+
+PHASE 7:
+Create Analyze Road.
+
+PHASE 8:
+Create risk engine.
+
+PHASE 9:
+Create Hazard Risk Map.
+
+PHASE 10:
+Create Complaints.
+
+PHASE 11:
+Create Reports.
+
+PHASE 12:
+Create Analytics.
+
+PHASE 13:
+Create About.
+
+PHASE 14:
+Create authentication/authorization.
+
+PHASE 15:
+Connect frontend to backend.
+
+PHASE 16:
+Add persistence.
+
+PHASE 17:
+Test everything.
+
+PHASE 18:
+Fix all errors.
+
+PHASE 19:
+Improve responsive design.
+
+PHASE 20:
+Final QA.
+
+============================================================
+40. IMPORTANT REPLIT AGENT INSTRUCTION
+============================================================
+
+Do not stop after explaining what needs to be done.
+
+Actually create the application.
+
+Create files.
+
+Write code.
+
+Install dependencies.
+
+Create database schema.
+
+Create APIs.
+
+Connect frontend and backend.
+
+Run the application.
+
+Test the application.
+
+Fix errors.
+
+Use the Replit preview to verify the application.
+
+============================================================
+41. FINAL QUALITY CHECK
+============================================================
+
+Before declaring the project complete, verify:
+
+[ ] Application starts successfully.
+
+[ ] Dashboard works.
+
+[ ] Navigation works.
+
+[ ] Analyze Road works.
+
+[ ] Image upload works.
+
+[ ] Analysis works.
+
+[ ] Risk score works.
+
+[ ] Risk classification works.
+
+[ ] Hazard saving works.
+
+[ ] Dashboard updates after saving.
+
+[ ] Map works.
+
+[ ] Map markers come from database.
+
+[ ] Map filters work.
+
+[ ] Complaints work.
+
+[ ] Complaint reference numbers work.
+
+[ ] Complaint status works.
+
+[ ] Reports work.
+
+[ ] Analytics work.
+
+[ ] Database persistence works.
+
+[ ] Authentication works if implemented.
+
+[ ] Responsive layout works.
+
+[ ] Error handling works.
+
+[ ] Loading states work.
+
+[ ] Form validation works.
+
+[ ] No major browser console errors.
+
+[ ] No major backend errors.
+
+[ ] No exposed secrets.
+
+[ ] README exists.
+
+[ ] .env.example exists.
+
+============================================================
+42. FINAL RESPONSE
+============================================================
+
+When everything is implemented, give me:
+
+1. Project architecture
+2. Features implemented
+3. Database structure
+4. API endpoints
+5. AI analysis architecture
+6. Risk-scoring logic
+7. Map implementation
+8. Authentication system
+9. Environment variables required
+10. How to run the application
+11. How to deploy it on Replit
+12. Any limitations
+13. Recommended future improvements
+
+IMPORTANT:
+
+BUILD THE APPLICATION.
+
+Do not just give me code snippets.
+
+Do not just give me instructions.
+
+Do not stop at a UI mockup.
+
+Create the complete working RoadGuard application from scratch.
+
+START WITH PHASE 1.

@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "RoadGuard"
+description = "A road-safety platform for analyzing hazards, calculating risk, mapping incidents, tracking complaints, and generating reports from persistent records."
+version = "1.0.0"
+id = "artifacts/roadguard"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 19212
+
+[services.development]
+run = "pnpm --filter @workspace/roadguard run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/roadguard", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/roadguard/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "19212"
+BASE_PATH = "/"

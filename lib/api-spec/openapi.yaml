@@ -10,6 +10,18 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: dashboard
+    description: Dashboard summaries
+  - name: hazards
+    description: Road hazard records
+  - name: analysis
+    description: Road image analysis
+  - name: complaints
+    description: Citizen complaints
+  - name: reports
+    description: Hazard reports
+  - name: analytics
+    description: Road safety analytics
 paths:
   /healthz:
     get:
@@ -24,7 +36,262 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /dashboard:
+    get:
+      operationId: getDashboard
+      tags: [dashboard]
+      summary: Get dashboard summary
+      responses:
+        "200":
+          description: Dashboard summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardSummary"
+  /hazards:
+    get:
+      operationId: getHazards
+      tags: [hazards]
+      summary: List saved hazards
+      parameters:
+        - in: query
+          name: riskLevel
+          schema:
+            $ref: "#/components/schemas/RiskLevel"
+        - in: query
+          name: status
+          schema:
+            $ref: "#/components/schemas/HazardStatus"
+      responses:
+        "200":
+          description: Hazard records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Hazard"
+    post:
+      operationId: createHazard
+      tags: [hazards]
+      summary: Save a hazard record
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HazardInput"
+      responses:
+        "201":
+          description: Created hazard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Hazard"
+        "400":
+          description: Invalid hazard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /hazards/{id}:
+    get:
+      operationId: getHazard
+      tags: [hazards]
+      summary: Get one hazard
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Hazard record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Hazard"
+        "404":
+          description: Hazard not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    patch:
+      operationId: updateHazard
+      tags: [hazards]
+      summary: Update a hazard
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/HazardUpdate"
+      responses:
+        "200":
+          description: Updated hazard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Hazard"
+    delete:
+      operationId: deleteHazard
+      tags: [hazards]
+      summary: Delete a hazard
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "204":
+          description: Deleted
+  /analyze-road:
+    post:
+      operationId: analyzeRoad
+      tags: [analysis]
+      summary: Analyze a road image using configured AI or development fallback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AnalysisInput"
+      responses:
+        "200":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalysisResult"
+  /complaints:
+    get:
+      operationId: getComplaints
+      tags: [complaints]
+      summary: List complaints
+      responses:
+        "200":
+          description: Complaint records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Complaint"
+    post:
+      operationId: createComplaint
+      tags: [complaints]
+      summary: Submit a complaint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ComplaintInput"
+      responses:
+        "201":
+          description: Created complaint
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Complaint"
+  /complaints/{id}:
+    get:
+      operationId: getComplaint
+      tags: [complaints]
+      summary: Get one complaint
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Complaint record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Complaint"
+    patch:
+      operationId: updateComplaint
+      tags: [complaints]
+      summary: Update complaint status or assignment
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ComplaintUpdate"
+      responses:
+        "200":
+          description: Updated complaint
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Complaint"
+  /reports:
+    get:
+      operationId: getReports
+      tags: [reports]
+      summary: List generated reports
+      responses:
+        "200":
+          description: Report records
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Report"
+  /reports/{id}:
+    get:
+      operationId: getReport
+      tags: [reports]
+      summary: Get a report with its hazard
+      parameters:
+        - $ref: "#/components/parameters/Id"
+      responses:
+        "200":
+          description: Report record
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Report"
+  /analytics:
+    get:
+      operationId: getAnalytics
+      tags: [analytics]
+      summary: Get grouped safety analytics
+      responses:
+        "200":
+          description: Analytics data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Analytics"
+  /demo-data:
+    post:
+      operationId: seedDemoData
+      tags: [hazards]
+      summary: Seed clearly labelled demo records
+      responses:
+        "201":
+          description: Seed result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DemoSeedResult"
+    delete:
+      operationId: clearDemoData
+      tags: [hazards]
+      summary: Clear demo records
+      responses:
+        "204":
+          description: Demo records cleared
 components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+        minimum: 1
   schemas:
     HealthStatus:
       type: object
@@ -33,4 +300,259 @@ components:
           type: string
       required:
         - status
+    RiskLevel:
+      type: string
+      enum: [LOW, MEDIUM, HIGH]
+    HazardStatus:
+      type: string
+      enum: [OPEN, IN_PROGRESS, RESOLVED]
+    ComplaintStatus:
+      type: string
+      enum: [SUBMITTED, UNDER_REVIEW, IN_PROGRESS, RESOLVED, REJECTED]
+    Authority:
+      type: string
+      enum:
+        - Municipal Corporation
+        - Municipal Council
+        - Public Works Department
+        - State Highway Department
+        - National Highways Authority
+        - Traffic Police
+        - Local Road Authority
+        - Other
+    HazardType:
+      type: string
+      enum:
+        - Pothole
+        - Waterlogging
+        - Cracked Road
+        - Damaged Road
+        - Road Debris
+        - Missing Streetlight
+        - Broken Traffic Signal
+        - Damaged Divider
+        - Poor Road Marking
+        - Open Manhole
+        - Flooded Road
+        - Road Collapse
+        - Other
+    Hazard:
+      type: object
+      required:
+        - id
+        - hazardType
+        - location
+        - damagePercentage
+        - riskScore
+        - riskLevel
+        - description
+        - recommendedAction
+        - responsibleAuthority
+        - status
+        - createdAt
+        - updatedAt
+        - isDemo
+      properties:
+        id: { type: integer }
+        hazardType: { $ref: "#/components/schemas/HazardType" }
+        location: { type: string }
+        latitude: { type: ["number", "null"] }
+        longitude: { type: ["number", "null"] }
+        imageUrl: { type: ["string", "null"] }
+        damagePercentage: { type: integer, minimum: 0, maximum: 100 }
+        riskScore: { type: integer, minimum: 0, maximum: 100 }
+        riskLevel: { $ref: "#/components/schemas/RiskLevel" }
+        description: { type: string }
+        recommendedAction: { type: string }
+        responsibleAuthority: { $ref: "#/components/schemas/Authority" }
+        status: { $ref: "#/components/schemas/HazardStatus" }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+        isDemo: { type: boolean }
+    HazardInput:
+      type: object
+      required:
+        - hazardType
+        - location
+        - damagePercentage
+        - riskScore
+        - description
+        - recommendedAction
+        - responsibleAuthority
+      properties:
+        hazardType: { $ref: "#/components/schemas/HazardType" }
+        location: { type: string, minLength: 2 }
+        latitude: { type: number, minimum: -90, maximum: 90 }
+        longitude: { type: number, minimum: -180, maximum: 180 }
+        imageUrl: { type: string }
+        damagePercentage: { type: integer, minimum: 0, maximum: 100 }
+        riskScore: { type: integer, minimum: 0, maximum: 100 }
+        description: { type: string, minLength: 3 }
+        recommendedAction: { type: string, minLength: 3 }
+        responsibleAuthority: { $ref: "#/components/schemas/Authority" }
+        status: { $ref: "#/components/schemas/HazardStatus" }
+        isDemo: { type: boolean }
+    HazardUpdate:
+      type: object
+      properties:
+        hazardType: { $ref: "#/components/schemas/HazardType" }
+        location: { type: string, minLength: 2 }
+        latitude: { type: number, minimum: -90, maximum: 90 }
+        longitude: { type: number, minimum: -180, maximum: 180 }
+        imageUrl: { type: string }
+        damagePercentage: { type: integer, minimum: 0, maximum: 100 }
+        riskScore: { type: integer, minimum: 0, maximum: 100 }
+        description: { type: string, minLength: 3 }
+        recommendedAction: { type: string, minLength: 3 }
+        responsibleAuthority: { $ref: "#/components/schemas/Authority" }
+        status: { $ref: "#/components/schemas/HazardStatus" }
+    AnalysisInput:
+      type: object
+      required: [imageUrl]
+      properties:
+        imageUrl: { type: string, minLength: 1 }
+        location: { type: string }
+        hazardType:
+          allOf:
+            - $ref: "#/components/schemas/HazardType"
+          nullable: true
+    AnalysisResult:
+      type: object
+      required:
+        - detectedHazard
+        - damagePercentage
+        - riskScore
+        - riskLevel
+        - description
+        - recommendedAction
+        - source
+      properties:
+        detectedHazard: { $ref: "#/components/schemas/HazardType" }
+        damagePercentage: { type: integer, minimum: 0, maximum: 100 }
+        riskScore: { type: integer, minimum: 0, maximum: 100 }
+        riskLevel: { $ref: "#/components/schemas/RiskLevel" }
+        description: { type: string }
+        recommendedAction: { type: string }
+        source:
+          type: string
+          enum: [DEVELOPMENT_ANALYSIS, EXTERNAL_AI]
+    Complaint:
+      type: object
+      required:
+        - id
+        - referenceNumber
+        - name
+        - location
+        - hazardType
+        - description
+        - responsibleAuthority
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id: { type: integer }
+        referenceNumber: { type: string }
+        name: { type: string }
+        phone: { type: ["string", "null"] }
+        location: { type: string }
+        latitude: { type: ["number", "null"] }
+        longitude: { type: ["number", "null"] }
+        hazardType: { $ref: "#/components/schemas/HazardType" }
+        description: { type: string }
+        imageUrl: { type: ["string", "null"] }
+        responsibleAuthority: { $ref: "#/components/schemas/Authority" }
+        status: { $ref: "#/components/schemas/ComplaintStatus" }
+        createdAt: { type: string, format: date-time }
+        updatedAt: { type: string, format: date-time }
+    ComplaintInput:
+      type: object
+      required: [name, location, hazardType, description, responsibleAuthority]
+      properties:
+        name: { type: string, minLength: 2 }
+        phone: { type: string }
+        location: { type: string, minLength: 2 }
+        latitude: { type: number, minimum: -90, maximum: 90 }
+        longitude: { type: number, minimum: -180, maximum: 180 }
+        hazardType: { $ref: "#/components/schemas/HazardType" }
+        description: { type: string, minLength: 5 }
+        imageUrl: { type: string }
+        responsibleAuthority: { $ref: "#/components/schemas/Authority" }
+    ComplaintUpdate:
+      type: object
+      properties:
+        status: { $ref: "#/components/schemas/ComplaintStatus" }
+        responsibleAuthority: { $ref: "#/components/schemas/Authority" }
+    Report:
+      type: object
+      required: [id, reportNumber, generatedAt, status, hazard]
+      properties:
+        id: { type: integer }
+        reportNumber: { type: string }
+        generatedAt: { type: string, format: date-time }
+        status: { type: string }
+        hazard: { $ref: "#/components/schemas/Hazard" }
+    DashboardSummary:
+      type: object
+      required: [totalRecords, highRisk, mediumRisk, lowRisk, openComplaints, recentHazards]
+      properties:
+        totalRecords: { type: integer }
+        highRisk: { type: integer }
+        mediumRisk: { type: integer }
+        lowRisk: { type: integer }
+        openComplaints: { type: integer }
+        recentHazards:
+          type: array
+          items: { $ref: "#/components/schemas/Hazard" }
+    Analytics:
+      type: object
+      required:
+        - totalHazards
+        - highRisk
+        - mediumRisk
+        - lowRisk
+        - resolvedHazards
+        - openComplaints
+        - riskDistribution
+        - hazardTypeDistribution
+        - hazardsOverTime
+        - complaintStatus
+        - authorityDistribution
+      properties:
+        totalHazards: { type: integer }
+        highRisk: { type: integer }
+        mediumRisk: { type: integer }
+        lowRisk: { type: integer }
+        resolvedHazards: { type: integer }
+        openComplaints: { type: integer }
+        riskDistribution:
+          type: array
+          items: { $ref: "#/components/schemas/CountPoint" }
+        hazardTypeDistribution:
+          type: array
+          items: { $ref: "#/components/schemas/CountPoint" }
+        hazardsOverTime:
+          type: array
+          items: { $ref: "#/components/schemas/CountPoint" }
+        complaintStatus:
+          type: array
+          items: { $ref: "#/components/schemas/CountPoint" }
+        authorityDistribution:
+          type: array
+          items: { $ref: "#/components/schemas/CountPoint" }
+    CountPoint:
+      type: object
+      required: [label, count]
+      properties:
+        label: { type: string }
+        count: { type: integer }
+    DemoSeedResult:
+      type: object
+      required: [created]
+      properties:
+        created: { type: integer }
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }
 
