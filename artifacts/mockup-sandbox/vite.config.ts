@@ -51,10 +51,11 @@ export default defineConfig({
     },
   },
   root: path.resolve(import.meta.dirname),
-  build: {
-    outDir: path.resolve(import.meta.dirname, "dist"),
-    emptyOutDir: true,
-  },
+ build: {
+  outDir: path.resolve(import.meta.dirname, "dist"),
+  emptyOutDir: true,
+  sourcemap: false,
+},
   server: {
     port,
     host: "0.0.0.0",
