@@ -1,14 +1,14 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-  "incremental": true,
-  "tsBuildInfoFile": ".tsbuildinfo",
-  "outDir": "dist",
-  "rootDir": "src",
-  "types": ["node"],
-  "esModuleInterop": true,
-  "allowSyntheticDefaultImports": true
-}
+    "incremental": true,
+    "tsBuildInfoFile": ".tsbuildinfo",
+    "outDir": "dist",
+    "rootDir": "src",
+    "types": ["node"],
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
+  },
   "include": ["src"],
   "references": [
     {
